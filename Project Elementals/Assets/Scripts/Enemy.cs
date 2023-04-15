@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : ElementalReaction
 {
     private Rigidbody2D rgb;
 
+    //UI
+    [SerializeField] private Scrollbar[] scrollbars;
 
     //Movement and Patrol
     [SerializeField] private float accel;
@@ -17,11 +20,10 @@ public class Enemy : ElementalReaction
     private int patrolOrder;
     private float tempAccel;
     private float tempSojourn;
+
     //Define cambat status of enemy
     [SerializeField] private float HP;
-
-    
-    private float Intensity_wind, Intensity_grav, Intensity_control;
+    private float maxHP, Intensity_wind, Intensity_grav, Intensity_control;
 
 
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class Enemy : ElementalReaction
         currentStatus = Status.idle;
         Intensity_wind = 0.0f;
         Intensity_grav = 0.0f;
+        maxHP = HP;
         //int i = ChangeStatus();
         //Debug.Log("changed to " + i);
         //currentStatus = Status.updrafted;
@@ -55,7 +58,11 @@ public class Enemy : ElementalReaction
     // Update is called once per frame
     void Update()
     {
-        
+        //UI update
+        scrollbars[0].size = HP / maxHP;
+        scrollbars[1].size = Intensity_wind / 10;
+        scrollbars[2].size = Intensity_grav / 10;
+
         //Update Status with elemental remain
         if (Intensity_grav > 0)
             Intensity_grav -= Time.deltaTime;
@@ -140,6 +147,7 @@ public class Enemy : ElementalReaction
         if((int)currentStatus < 4 && (int)currentStatus > 0)
         {
             Intensity_grav = effectIntensity;
+            Intensity_wind = Intensity_control = 0;
             HP -= damage;
             Debug.Log("current HP is " + HP);
         }
@@ -159,6 +167,7 @@ public class Enemy : ElementalReaction
         else // change this later
         {
             Intensity_wind = effectIntensity;
+            Intensity_grav = Intensity_control = 0;
             HP -= damage;
             Debug.Log("current HP is " + HP);
         }
@@ -172,7 +181,8 @@ public class Enemy : ElementalReaction
                 Move(1);
                 break;
             case Status.high_gravity:
-                Move(0.003f);
+                Move(0.05f);
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
                 break;
             case Status.updrafted:
                 Move(0);

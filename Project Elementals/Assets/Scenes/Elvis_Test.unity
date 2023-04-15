@@ -1001,6 +1001,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1949037295670112380, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949037295670112380, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1989352754005807395, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1048,6 +1056,26 @@ PrefabInstance:
     - target: {fileID: 1989352754005807404, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: m_Name
       value: Enemy-patrol
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785289564805707234, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785289564805707234, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785289564805707234, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4076761836404036147, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4076761836404036147, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5200635082556923235, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: sojournTime

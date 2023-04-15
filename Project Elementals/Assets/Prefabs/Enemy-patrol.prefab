@@ -157,9 +157,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1989352754005807395}
     m_Modifications:
+    - target: {fileID: 1065946907890101423, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065946907890101423, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224915605813250942, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224915605813250942, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224915605813250942, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2107479878877548757, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266463515361922784, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266463515361922784, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9076828484322841523, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
       propertyPath: m_RootOrder
