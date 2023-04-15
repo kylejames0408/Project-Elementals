@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : ElementalReaction
 {
     private Rigidbody2D rgb;
 
@@ -17,8 +17,11 @@ public class Enemy : MonoBehaviour
     private int patrolOrder;
     private float tempAccel;
     private float tempSojourn;
-    //Define status of enemy
+    //Define cambat status of enemy
     [SerializeField] private float HP;
+
+    
+    private float Intensity_wind, Intensity_grav, Intensity_control;
 
 
     // Start is called before the first frame update
@@ -39,15 +42,46 @@ public class Enemy : MonoBehaviour
         }
         tempSojourn = sojournTime;
         tempAccel = accel;
+
+        currentStatus = Status.idle;
+        Intensity_wind = 0.0f;
+        Intensity_grav = 0.0f;
+        //int i = ChangeStatus();
+        //Debug.Log("changed to " + i);
+        //currentStatus = Status.updrafted;
+        //takeDamage(0, 0, Status.high_gravity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        
+        //Update Status with elemental remain
+        if (Intensity_grav > 0)
+            Intensity_grav -= Time.deltaTime;
+        else
+            Intensity_grav = 0;
+
+        if (Intensity_wind > 0)
+            Intensity_wind -= Time.deltaTime;
+        else
+            Intensity_wind = 0;
+
+        if (Intensity_control > 0)
+            Intensity_control -= Time.deltaTime;
+        else
+            Intensity_control = 0;
+
+        if(Intensity_control<=0 && Intensity_grav<=0 && Intensity_wind <= 0)
+        {
+            currentStatus = Status.idle;
+        }
+
+        StatusInflunce();
+
     }
 
-    private void Move()
+    private void Move(float weaken)
     {
         if (tempSojourn > 0 && !isPatrol)
         {
@@ -64,12 +98,14 @@ public class Enemy : MonoBehaviour
         }
 
         if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-            rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position)* accel, ForceMode2D.Force);
+            rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position)* accel * weaken, ForceMode2D.Force);
         else
             rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
 
 
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D others)
     {
@@ -86,6 +122,68 @@ public class Enemy : MonoBehaviour
                 isPatrol = false;
                 //Debug.Log("Go to next pos" +patrolOrder);
             }
+        }
+        else if (others.name == "Wind_Attack_1")
+        {
+            TakeDamage(5, 5, Status.updrafted); // change this to player status
+        }
+        else if(others.name == "Grav_Attack_1")
+        {
+            TakeDamage(5, 5, Status.high_gravity); //// change this to player status
+        }
+    }
+
+    private void TakeDamage(float damage, float effectIntensity, Status attackEffect)
+    {
+        currentStatus = (Status)ChangeStatus(attackEffect);
+        Debug.Log("new status " + currentStatus + " Intnsity is " + effectIntensity);
+        if((int)currentStatus < 4 && (int)currentStatus > 0)
+        {
+            Intensity_grav = effectIntensity;
+            HP -= damage;
+            Debug.Log("current HP is " + HP);
+        }
+        else if (currentStatus == Status.idle)
+        {
+            HP -= damage;
+            Debug.Log("current HP is " + HP);
+        }
+        else if(currentStatus == Status.updraft_increase)
+        {
+            Intensity_control = 0.0f; // based on the effect
+            Intensity_wind = 0.0f;
+            Intensity_grav = 0.0f;
+            HP -= 2 * damage;
+            Debug.Log("current HP is " + HP);
+        }
+        else // change this later
+        {
+            Intensity_wind = effectIntensity;
+            HP -= damage;
+            Debug.Log("current HP is " + HP);
+        }
+    }
+
+    private void StatusInflunce()
+    {
+        switch (currentStatus)
+        {
+            case Status.idle:
+                Move(1);
+                break;
+            case Status.high_gravity:
+                Move(0.003f);
+                break;
+            case Status.updrafted:
+                Move(0);
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), 0.02f);
+                break;
+
+        }
+
+        if (HP <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
