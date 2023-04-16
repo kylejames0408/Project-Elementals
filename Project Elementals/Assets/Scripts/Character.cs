@@ -36,5 +36,34 @@ public class Character : MonoBehaviour
         {
             rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
         }
+
+        if(Input.GetMouseButtonDown(1))//Right Click
+        {
+            Debug.Log(1);
+        }
+        if(Input.GetMouseButtonDown(0)) //LeftClick
+        {
+            Debug.Log(0);
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            Switch();
+        }
+       
+    }
+
+    public void UseAbility()
+    {
+
+    }
+
+    public void BasicAttack()
+    {
+
+    }
+
+    public void Switch()
+    {
+
     }
 }

@@ -64,6 +64,7 @@ public class Enemy : ElementalReaction
         scrollbars[2].size = Intensity_grav / 10;
 
         //Update Status with elemental remain
+        /*
         if (Intensity_grav > 0)
             Intensity_grav -= Time.deltaTime;
         else
@@ -83,7 +84,7 @@ public class Enemy : ElementalReaction
         {
             currentStatus = Status.idle;
         }
-
+        */
         StatusInflunce();
 
     }
@@ -111,7 +112,7 @@ public class Enemy : ElementalReaction
 
 
     }
-
+    
 
 
     private void OnTriggerEnter2D(Collider2D others)
@@ -178,14 +179,17 @@ public class Enemy : ElementalReaction
         switch (currentStatus)
         {
             case Status.idle:
+                GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 Move(1);
                 break;
             case Status.high_gravity:
                 Move(0.05f);
+                GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
                 break;
             case Status.updrafted:
                 Move(0);
+                GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), 0.02f);
                 break;
 
