@@ -140,7 +140,7 @@ public class Enemy : ElementalReaction
         }
     }
 
-    private void TakeDamage(float damage, float effectIntensity, Status attackEffect)
+    public void TakeDamage(float damage, float effectIntensity, Status attackEffect)
     {
         currentStatus = (Status)ChangeStatus(attackEffect);
         Debug.Log("new status " + currentStatus + " Intnsity is " + effectIntensity);

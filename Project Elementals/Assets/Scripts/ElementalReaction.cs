@@ -13,7 +13,7 @@ public class ElementalReaction : MonoBehaviour
         updrafted = 4, // Updraft (Sends Enemies Upward)
         pushed = 5, // Push (Pushes Enemies Away)
         revolved = 6, // Whirlwind (Revolves Enemies Around a Point)
-        updraft_increase = 7,
+        updraft_increase = 7,//Updraft + high grav
 
     }
 
