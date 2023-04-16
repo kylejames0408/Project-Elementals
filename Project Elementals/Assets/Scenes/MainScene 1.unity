@@ -832,6 +832,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Circle
       objectReference: {fileID: 0}
+    - target: {fileID: 1134057465, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134057465, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134057465, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134057465, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1134057466, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: m_Color.a
       value: 0.62352943
