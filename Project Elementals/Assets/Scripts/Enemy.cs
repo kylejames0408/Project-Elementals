@@ -133,17 +133,18 @@ public class Enemy : ElementalReaction
         }
         else if (others.name == "Wind_Attack_1")
         {
-            TakeDamage(5, 5, Status.updrafted); // change this to player status
+            TakeDamage(5); // change this to player status
         }
         else if(others.name == "Grav_Attack_1")
         {
-            TakeDamage(5, 5, Status.high_gravity); //// change this to player status
+            TakeDamage(5); //// change this to player status
         }
     }
 
-    public void TakeDamage(float damage, float effectIntensity, Status attackEffect)
+    public void TakeDamage(float damage)
     {
-        currentStatus = (Status)ChangeStatus(attackEffect);
+
+        /*currentStatus = (Status)ChangeStatus(attackEffect);
         Debug.Log("new status " + currentStatus + " Intnsity is " + effectIntensity);
         if((int)currentStatus < 4 && (int)currentStatus > 0)
         {
@@ -171,7 +172,8 @@ public class Enemy : ElementalReaction
             Intensity_grav = Intensity_control = 0;
             HP -= damage;
             Debug.Log("current HP is " + HP);
-        }
+        }*/
+        HP -= damage;
     }
 
     private void StatusInflunce()
@@ -180,6 +182,7 @@ public class Enemy : ElementalReaction
         {
             case Status.idle:
                 GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
+               // GetComponent<BoxCollider2D>().enabled = true;
                 Move(1);
                 break;
             case Status.high_gravity:
@@ -189,15 +192,40 @@ public class Enemy : ElementalReaction
                 break;
             case Status.updrafted:
                 Move(0);
+                //GetComponent<BoxCollider2D>().enabled = false;
                 GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), 0.02f);
+                break;
+            case Status.updraft_increase:
+                Move(0);
+                GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 break;
 
         }
 
         if (HP <= 0)
         {
-            Destroy(this.gameObject);
+            currentStatus = Status.idle;
+            GetComponentInChildren<Animator>().SetTrigger("Died");
+            GetComponent<BoxCollider2D>().enabled = false;
+        }
+    }
+
+    public void HitByAbility(int abilityRefNum)
+    {
+        Debug.Log("Enemy " + name + " was hit with abililty number " + abilityRefNum);
+        switch(abilityRefNum)
+        {
+            case 1:
+                if (currentStatus == Status.idle)
+                    currentStatus = Status.updrafted;
+                break;
+            case 2:
+                if (currentStatus == Status.idle)
+                    currentStatus = Status.high_gravity;
+                else if (currentStatus == Status.updrafted)
+                    currentStatus = Status.updraft_increase;
+                break;
         }
     }
 }

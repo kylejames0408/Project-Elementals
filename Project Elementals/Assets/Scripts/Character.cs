@@ -21,15 +21,20 @@ public class Character : MonoBehaviour
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
     private bool isWind = true;
-    private int equippedItem1;
-    private int equippedItem2;
+    private int equippedWindItem = 1;
+    private int equippedGravItem = 2;
+    private float timer = 0;
+    private bool startTimer = false;
+    private GameObject activatedCollider;
     [SerializeField]public List<Ability> abilities = new List<Ability>();
     
     // Start is called before the first frame update
     void Start()
     {
         rgb = GetComponent<Rigidbody2D>();
-
+        foreach (Transform t in transform)
+            if (t.name.Contains("Range"))
+                t.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -65,15 +70,36 @@ public class Character : MonoBehaviour
         {
             Switch();
         }
-       
+
+        if (startTimer)
+            if (timer > 0)
+                timer -= Time.deltaTime;
+            else
+            {
+                timer = 0;
+                startTimer = false;
+                foreach (Transform t in transform)
+                    if (t.name.Contains("Range"))
+                        t.gameObject.SetActive(false);
+
+            }
     }
     public void UseAbility()
     {
-
+        timer = 0.05f;
+        startTimer = true;
+        if (isWind)
+        {
+            transform.Find((abilities[equippedWindItem - 1].name + "Range")).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.Find((abilities[equippedGravItem - 1].name + "Range")).gameObject.SetActive(true);
+        }
     }
     public void AbilityHit(int abilityReferenceNumber, GameObject enemyHit)
     {
-
+        enemyHit.GetComponent<Enemy>().HitByAbility(abilityReferenceNumber);
     }
 
     public void BasicAttack()
@@ -83,13 +109,14 @@ public class Character : MonoBehaviour
 
     public void Switch()
     {
-
+        isWind = !isWind;
     }
 }
 
 [System.Serializable]
 public class Ability
 {
+    public int index;
     public string name;
     public int colliderType; // 0 - Rectangle, anything else - Circular
     public float xOffset;
@@ -97,8 +124,9 @@ public class Ability
     public float xSize;
     public float ySize;
 
-    public Ability(string n, int cType, float xO, float yO, float xS, float yS)
+    public Ability(int ind, string n, int cType, float xO, float yO, float xS, float yS)
     {
+        index = ind;
         name = n;
         colliderType = cType;
         xOffset = xO;
@@ -172,6 +200,7 @@ public class BuildColliders:EditorWindow
                 circleColliderReference.offset = new Vector2(a.xOffset, a.yOffset);
             }
             cloneReference.name = a.name + "Range";
+            cloneReference.GetComponent<RangeCollider>().abilityReferenceNumber = a.index;
         }
         
     }
