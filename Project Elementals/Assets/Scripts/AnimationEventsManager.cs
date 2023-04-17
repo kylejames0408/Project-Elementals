@@ -13,7 +13,7 @@ public class AnimationEventsManager : ElementalReaction
     public void SlammedDown()
     {
         transform.parent.gameObject.GetComponent<Enemy>().currentStatus = Status.idle;
-        transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(15);
+        transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(30);
     }
 
     public void Idle()
