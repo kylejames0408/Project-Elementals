@@ -26,6 +26,8 @@ public class Character : MonoBehaviour
     private float timer = 0;
     private bool startTimer = false;
     private GameObject activatedCollider;
+    [SerializeField]private Sprite windSprite;
+    [SerializeField]private Sprite gravSprite;
     [SerializeField]public List<Ability> abilities = new List<Ability>();
     
     // Start is called before the first frame update
@@ -110,6 +112,10 @@ public class Character : MonoBehaviour
     public void Switch()
     {
         isWind = !isWind;
+        if (isWind)
+            GetComponent<SpriteRenderer>().sprite = windSprite;
+        else
+            GetComponent<SpriteRenderer>().sprite = gravSprite;
     }
 }
 
