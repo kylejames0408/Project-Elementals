@@ -21,7 +21,10 @@ public class AnimationEventsManager : ElementalReaction
         transform.parent.gameObject.GetComponent<Enemy>().currentStatus = Status.idle;
     }
 
-    
+    public void SetInactive()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void DeathAnimFinished()
     {

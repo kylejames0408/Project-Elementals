@@ -61,6 +61,10 @@ public class Character : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))//Right Click
             {
+                StartAbilityAnim();
+            }
+            if(Input.GetMouseButtonUp(1))
+            {
                 UseAbility();
             }
             if (Input.GetMouseButtonDown(0)) //LeftClick
@@ -100,22 +104,38 @@ public class Character : MonoBehaviour
             switchTimer -= Time.deltaTime;
 
     }
+
+    public void StartAbilityAnim()
+    {
+         if (isWind)
+        {
+            transform.Find((abilities[equippedWindItem - 1].name + "Anim")).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.Find((abilities[equippedGravItem - 1].name + "Anim")).gameObject.SetActive(true);
+        }
+    }
+
     public void UseAbility()
     {
         rangeTimer = 0.05f;
         startTimer = true;
         if (isWind)
         {
+            transform.Find((abilities[equippedWindItem - 1].name + "Anim")).GetComponent<Animator>().SetTrigger("MouseUp");
             transform.Find((abilities[equippedWindItem - 1].name + "Range")).gameObject.SetActive(true);
         }
         else
         {
+            transform.Find((abilities[equippedGravItem - 1].name + "Anim")).GetComponent<Animator>().SetTrigger("MouseUp");
             transform.Find((abilities[equippedGravItem - 1].name + "Range")).gameObject.SetActive(true);
         }
     }
 
     public void AbilityHit(int abilityReferenceNumber, GameObject enemyHit)
     {
+        Debug.Log("Ability number " + abilityReferenceNumber + " hit enemy " + enemyHit.name);
         enemyHit.GetComponent<Enemy>().HitByAbility(abilityReferenceNumber);
     }
 
@@ -162,7 +182,7 @@ public class Ability
         ySize = yS;
     }
 }
-/*
+
 public class BuildColliders:EditorWindow
 {
 
@@ -231,4 +251,4 @@ public class BuildColliders:EditorWindow
         }
         
     }
-} */
+} 
