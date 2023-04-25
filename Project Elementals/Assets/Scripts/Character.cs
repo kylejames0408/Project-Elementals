@@ -177,8 +177,10 @@ public class Character : MonoBehaviour
         Debug.Log("Switch called by " + name);
         rgb.velocity = Vector2.zero;
         controlled = false;
-        otherChar.GetComponent<Character>().SetInControl();    
+        otherChar.GetComponent<Character>().SetInControl();
+        Camera.main.gameObject.GetComponent<CameraController>().Switch(otherChar);
     }
+
 }
 
 [System.Serializable]
