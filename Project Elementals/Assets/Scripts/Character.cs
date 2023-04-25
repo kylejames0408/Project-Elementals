@@ -9,7 +9,7 @@ using UnityEditor;
 
 
 
-public class Character : MonoBehaviour 
+public class Character : MonoBehaviour
 {
     private Rigidbody2D rgb;
 
@@ -20,19 +20,31 @@ public class Character : MonoBehaviour
     [SerializeField] private float decel;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
-    private bool isWind = true;
+    [SerializeField] private bool isWind = true;
     private int equippedWindItem = 1;
     private int equippedGravItem = 2;
-    private float timer = 0;
+    private float rangeTimer = 0;
+    private float switchTimer = 0;
+    private float autoTimer = 0;
+    [SerializeField] private float switchCooldown = 0;
+    [SerializeField] private float windAutoCooldown;
+    [SerializeField] private float gravAutoCooldown;
+    [SerializeField] private float projectileSpeed;
     private bool startTimer = false;
     private GameObject activatedCollider;
-    [SerializeField]private Sprite windSprite;
-    [SerializeField]private Sprite gravSprite;
-    [SerializeField]public List<Ability> abilities = new List<Ability>();
+    [SerializeField] private GameObject otherChar;
+    [SerializeField] private bool controlled;
+    [SerializeField] private Sprite windSprite;
+    [SerializeField] private Sprite gravSprite;
+    [SerializeField] public List<Ability> abilities = new List<Ability>();
+    [SerializeField] private GameObject windAutoProjectile;
+    [SerializeField] private GameObject projectileSpawnLocation;
+    private Vector2 natScale;
     
     // Start is called before the first frame update
     void Start()
     {
+        natScale = transform.localScale;
         rgb = GetComponent<Rigidbody2D>();
         foreach (Transform t in transform)
             if (t.name.Contains("Range"))
@@ -42,80 +54,130 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-        rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
-        else
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+        if (controlled)
+        {
+            if (Input.GetAxis("Horizontal") > 0)
+                transform.localScale = natScale;
+            else if(Input.GetAxis("Horizontal") < 0)
+                transform.localScale = new Vector2(-natScale.x, natScale.y);
 
-        if (Input.GetAxis("Vertical") == 0 && rgb.velocity.y!=0)
-        {
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(rgb.velocity.x, 0), decel);
-        }
-        if(Input.GetAxis("Horizontal") == 0 && rgb.velocity.x!=0)
-        {
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, rgb.velocity.y), decel);
-        }
-        if(Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
-        {
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
-        }
+            if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+                rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
+            else
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel*Time.deltaTime);
 
-        if(Input.GetMouseButtonDown(1))//Right Click
-        {
-            UseAbility();
+            if (Input.GetAxis("Vertical") == 0 && rgb.velocity.y != 0)
+            {
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(rgb.velocity.x, 0), decel*Time.deltaTime);
+            }
+           
+
+            if (Input.GetMouseButtonDown(1))//Right Click
+            {
+                StartAbilityAnim();
+            }
+            if(Input.GetMouseButtonUp(1))
+            {
+                UseAbility();
+            }
+            if (Input.GetMouseButtonDown(0) && autoTimer <= 0) //LeftClick
+            {
+                BasicAttack();
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && switchTimer <= 0)
+            {
+
+                Switch();
+            }
         }
-        if(Input.GetMouseButtonDown(0)) //LeftClick
+        if (Input.GetAxis("Horizontal") == 0 && rgb.velocity.x != 0)
         {
-            Debug.Log(0);
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, rgb.velocity.y), decel*Time.deltaTime);
         }
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
-            Switch();
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel*Time.deltaTime);
         }
 
         if (startTimer)
-            if (timer > 0)
-                timer -= Time.deltaTime;
+        {
+            if (rangeTimer > 0)
+                rangeTimer -= Time.deltaTime;
             else
             {
-                timer = 0;
+                rangeTimer = 0;
                 startTimer = false;
                 foreach (Transform t in transform)
                     if (t.name.Contains("Range"))
                         t.gameObject.SetActive(false);
 
             }
+        }
+        if (switchTimer > 0)
+            switchTimer -= Time.deltaTime;
+        if (autoTimer > 0)
+            autoTimer -= Time.deltaTime;
+
     }
+
+    public void StartAbilityAnim()
+    {
+         if (isWind)
+        {
+            transform.Find((abilities[equippedWindItem - 1].name + "Anim")).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.Find((abilities[equippedGravItem - 1].name + "Anim")).gameObject.SetActive(true);
+        }
+    }
+
     public void UseAbility()
     {
-        timer = 0.05f;
+        rangeTimer = 0.05f;
         startTimer = true;
         if (isWind)
         {
+            transform.Find((abilities[equippedWindItem - 1].name + "Anim")).GetComponent<Animator>().SetTrigger("MouseUp");
             transform.Find((abilities[equippedWindItem - 1].name + "Range")).gameObject.SetActive(true);
         }
         else
         {
+            transform.Find((abilities[equippedGravItem - 1].name + "Anim")).GetComponent<Animator>().SetTrigger("MouseUp");
             transform.Find((abilities[equippedGravItem - 1].name + "Range")).gameObject.SetActive(true);
         }
     }
+
     public void AbilityHit(int abilityReferenceNumber, GameObject enemyHit)
     {
+        Debug.Log("Ability number " + abilityReferenceNumber + " hit enemy " + enemyHit.name);
         enemyHit.GetComponent<Enemy>().HitByAbility(abilityReferenceNumber);
     }
 
     public void BasicAttack()
     {
+        if (isWind)
+        {
+            GameObject projectile = Instantiate(windAutoProjectile, projectileSpawnLocation.transform.position, transform.rotation);
+            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(transform.localScale.x), 0)* projectileSpeed;
+            autoTimer = windAutoCooldown;
+        }
 
+    }
+
+    public void SetInControl()
+    {
+        Debug.Log("Set in control called by " + name);
+        switchTimer = switchCooldown;
+        controlled = true;
     }
 
     public void Switch()
     {
-        isWind = !isWind;
-        if (isWind)
-            GetComponent<SpriteRenderer>().sprite = windSprite;
-        else
-            GetComponent<SpriteRenderer>().sprite = gravSprite;
+        Debug.Log("Switch called by " + name);
+        rgb.velocity = Vector2.zero;
+        controlled = false;
+        otherChar.GetComponent<Character>().SetInControl();    
     }
 }
 
@@ -142,6 +204,7 @@ public class Ability
     }
 }
 
+#if UNITY_EDITOR
 public class BuildColliders:EditorWindow
 {
 
@@ -211,3 +274,4 @@ public class BuildColliders:EditorWindow
         
     }
 }
+#endif
