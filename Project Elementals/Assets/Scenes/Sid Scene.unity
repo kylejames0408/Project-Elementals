@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 72545482}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 229634751}
   m_Layer: 0
   m_Name: Invisible Walls
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2274,7 +2274,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2771,7 +2771,7 @@ GameObject:
   - component: {fileID: 999822904}
   m_Layer: 0
   m_Name: Square (3)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3038,6 +3038,9 @@ MonoBehaviour:
   circleColliderPrefab: {fileID: 2386351221603124499, guid: 8d53acba83596eb4daeb2766cb3aea0c, type: 3}
   isWind: 1
   switchCooldown: 0.2
+  windAutoCooldown: 0.2
+  gravAutoCooldown: 0
+  projectileSpeed: 15
   otherChar: {fileID: 1891393310}
   controlled: 1
   windSprite: {fileID: 21300000, guid: 3f5ccde6654af6343a99cf2fed13aa55, type: 3}
@@ -3057,6 +3060,8 @@ MonoBehaviour:
     yOffset: 0
     xSize: 9
     ySize: 0
+  windAutoProjectile: {fileID: 6674799394923145479, guid: 8e129f6f8953d7c428af5b3df1327957, type: 3}
+  projectileSpawnLocation: {fileID: 1113897424}
 --- !u!4 &1016559870
 Transform:
   m_ObjectHideFlags: 0
@@ -3072,6 +3077,7 @@ Transform:
   - {fileID: 1412014502}
   - {fileID: 1131167287}
   - {fileID: 518651182}
+  - {fileID: 1113897425}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3088,7 +3094,7 @@ GameObject:
   - component: {fileID: 1017656179}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3191,6 +3197,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9076828484322841523, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
   m_PrefabInstance: {fileID: 1303395480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1113897424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113897425}
+  m_Layer: 0
+  m_Name: ProjectileSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113897425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113897424}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1016559870}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1121491047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5635,6 +5672,9 @@ MonoBehaviour:
   circleColliderPrefab: {fileID: 2386351221603124499, guid: 8d53acba83596eb4daeb2766cb3aea0c, type: 3}
   isWind: 0
   switchCooldown: 0.25
+  windAutoCooldown: 0
+  gravAutoCooldown: 0
+  projectileSpeed: 0
   otherChar: {fileID: 1016559865}
   controlled: 0
   windSprite: {fileID: 21300000, guid: 3f5ccde6654af6343a99cf2fed13aa55, type: 3}
@@ -5654,6 +5694,8 @@ MonoBehaviour:
     yOffset: 0
     xSize: 9
     ySize: 0
+  windAutoProjectile: {fileID: 0}
+  projectileSpawnLocation: {fileID: 0}
 --- !u!4 &1891393315
 Transform:
   m_ObjectHideFlags: 0
@@ -5769,7 +5811,7 @@ GameObject:
   - component: {fileID: 1989860596}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

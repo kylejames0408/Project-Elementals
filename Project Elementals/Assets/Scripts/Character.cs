@@ -9,7 +9,7 @@ using UnityEditor;
 
 
 
-public class Character : MonoBehaviour 
+public class Character : MonoBehaviour
 {
     private Rigidbody2D rgb;
 
@@ -20,23 +20,31 @@ public class Character : MonoBehaviour
     [SerializeField] private float decel;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
-    [SerializeField]private bool isWind = true;
+    [SerializeField] private bool isWind = true;
     private int equippedWindItem = 1;
     private int equippedGravItem = 2;
     private float rangeTimer = 0;
     private float switchTimer = 0;
-    [SerializeField]private float switchCooldown = 0;
+    private float autoTimer = 0;
+    [SerializeField] private float switchCooldown = 0;
+    [SerializeField] private float windAutoCooldown;
+    [SerializeField] private float gravAutoCooldown;
+    [SerializeField] private float projectileSpeed;
     private bool startTimer = false;
     private GameObject activatedCollider;
     [SerializeField] private GameObject otherChar;
-    [SerializeField]private bool controlled;
-    [SerializeField]private Sprite windSprite;
-    [SerializeField]private Sprite gravSprite;
-    [SerializeField]public List<Ability> abilities = new List<Ability>();
+    [SerializeField] private bool controlled;
+    [SerializeField] private Sprite windSprite;
+    [SerializeField] private Sprite gravSprite;
+    [SerializeField] public List<Ability> abilities = new List<Ability>();
+    [SerializeField] private GameObject windAutoProjectile;
+    [SerializeField] private GameObject projectileSpawnLocation;
+    private Vector2 natScale;
     
     // Start is called before the first frame update
     void Start()
     {
+        natScale = transform.localScale;
         rgb = GetComponent<Rigidbody2D>();
         foreach (Transform t in transform)
             if (t.name.Contains("Range"))
@@ -48,6 +56,11 @@ public class Character : MonoBehaviour
     {
         if (controlled)
         {
+            if (Input.GetAxis("Horizontal") > 0)
+                transform.localScale = natScale;
+            else if(Input.GetAxis("Horizontal") < 0)
+                transform.localScale = new Vector2(-natScale.x, natScale.y);
+
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
                 rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
             else
@@ -67,9 +80,9 @@ public class Character : MonoBehaviour
             {
                 UseAbility();
             }
-            if (Input.GetMouseButtonDown(0)) //LeftClick
+            if (Input.GetMouseButtonDown(0) && autoTimer <= 0) //LeftClick
             {
-                Debug.Log(0);
+                BasicAttack();
             }
             if (Input.GetKeyDown(KeyCode.Q) && switchTimer <= 0)
             {
@@ -102,6 +115,8 @@ public class Character : MonoBehaviour
         }
         if (switchTimer > 0)
             switchTimer -= Time.deltaTime;
+        if (autoTimer > 0)
+            autoTimer -= Time.deltaTime;
 
     }
 
@@ -141,6 +156,12 @@ public class Character : MonoBehaviour
 
     public void BasicAttack()
     {
+        if (isWind)
+        {
+            GameObject projectile = Instantiate(windAutoProjectile, projectileSpawnLocation.transform.position, transform.rotation);
+            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(transform.localScale.x), 0)* projectileSpeed;
+            autoTimer = windAutoCooldown;
+        }
 
     }
 
@@ -150,9 +171,9 @@ public class Character : MonoBehaviour
         switchTimer = switchCooldown;
         controlled = true;
     }
+
     public void Switch()
     {
-
         Debug.Log("Switch called by " + name);
         rgb.velocity = Vector2.zero;
         controlled = false;
@@ -183,6 +204,7 @@ public class Ability
     }
 }
 
+#if UNITY_EDITOR
 public class BuildColliders:EditorWindow
 {
 
@@ -251,4 +273,5 @@ public class BuildColliders:EditorWindow
         }
         
     }
-} 
+}
+#endif
