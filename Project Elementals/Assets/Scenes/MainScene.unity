@@ -3014,6 +3014,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &395141109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395141110}
+  - component: {fileID: 395141111}
+  m_Layer: 0
+  m_Name: Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &395141110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395141109}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.008, y: -0.093, z: 0.25}
+  m_LocalScale: {x: 0.60151404, y: 0.4124749, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1680906124}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &395141111
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395141109}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.62352943}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &397063712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,7 +3758,7 @@ GameObject:
   - component: {fileID: 503737922}
   - component: {fileID: 503737921}
   - component: {fileID: 503737920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: UpdraftRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4204,7 +4288,7 @@ GameObject:
   - component: {fileID: 574353231}
   - component: {fileID: 574353230}
   - component: {fileID: 574353229}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WindPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4301,6 +4385,7 @@ MonoBehaviour:
     ySize: 0
   windAutoProjectile: {fileID: 6674799394923145479, guid: 8e129f6f8953d7c428af5b3df1327957, type: 3}
   projectileSpawnLocation: {fileID: 999673243}
+  distanceToPlayer: 0
 --- !u!4 &574353232
 Transform:
   m_ObjectHideFlags: 0
@@ -5403,7 +5488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684451352}
   - component: {fileID: 684451353}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8761,7 +8846,7 @@ GameObject:
   - component: {fileID: 990189859}
   - component: {fileID: 990189858}
   - component: {fileID: 990189857}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: OppressRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9028,7 +9113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 999673244}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ProjectileSpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9459,7 +9544,7 @@ GameObject:
   - component: {fileID: 1025308304}
   - component: {fileID: 1025308303}
   - component: {fileID: 1025308302}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GravPlayer (1)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -9556,6 +9641,7 @@ MonoBehaviour:
     ySize: 0
   windAutoProjectile: {fileID: 0}
   projectileSpawnLocation: {fileID: 0}
+  distanceToPlayer: 0
 --- !u!4 &1025308305
 Transform:
   m_ObjectHideFlags: 0
@@ -10998,7 +11084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1165724050}
   - component: {fileID: 1165724051}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15532,7 +15618,7 @@ GameObject:
   - component: {fileID: 1664791361}
   - component: {fileID: 1664791360}
   - component: {fileID: 1664791359}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: UpdraftAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15818,9 +15904,11 @@ GameObject:
   - component: {fileID: 1680906124}
   - component: {fileID: 1680906123}
   - component: {fileID: 1680906122}
+  - component: {fileID: 1680906126}
+  - component: {fileID: 1680906125}
   m_Layer: 0
   m_Name: Room2_rock
-  m_TagString: Environment
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15911,13 +15999,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680906121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.049276, y: 4.818378, z: 22.083035}
+  m_LocalPosition: {x: -12.04928, y: 4.818378, z: 22.08303}
   m_LocalScale: {x: 5.0333414, y: 3.8617702, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 395141110}
   m_Father: {fileID: 1570773569}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680906125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680906121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b915aaf30a237614e8accb7dec6deb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentStatus: 0
+--- !u!95 &1680906126
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680906121}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3a8b2276e7d6d624b8f35ecbd71833ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1686517387
 GameObject:
   m_ObjectHideFlags: 0
@@ -18881,14 +19003,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956567635}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.67, y: 6.44, z: 22.083035}
+  m_LocalRotation: {x: 0, y: 0, z: 0.72296715, w: 0.69088244}
+  m_LocalPosition: {x: 13.03, y: 5.45, z: 22.083035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1570773569}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 92.6}
 --- !u!212 &1956567637
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18954,7 +19076,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21021318, y: -1.7417669}
+  m_Offset: {x: -0.21021318, y: 2.0565221}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -18965,7 +19087,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.4996958, y: 1.9705486}
+  m_Size: {x: 3.4996958, y: 2.4882913}
   m_EdgeRadius: 0
 --- !u!1 &1980567571
 GameObject:
@@ -19495,7 +19617,7 @@ GameObject:
   - component: {fileID: 2018104922}
   - component: {fileID: 2018104921}
   - component: {fileID: 2018104920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: OppressAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}

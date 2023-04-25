@@ -40,6 +40,8 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject windAutoProjectile;
     [SerializeField] private GameObject projectileSpawnLocation;
     private Vector2 natScale;
+    [SerializeField] private float distanceToPlayer;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -118,6 +120,17 @@ public class Character : MonoBehaviour
         if (autoTimer > 0)
             autoTimer -= Time.deltaTime;
 
+        distanceToPlayer = Vector3.Distance(otherChar.transform.position, this.transform.position);
+        if (!controlled)
+        {
+            if (distanceToPlayer > 2)
+            {
+                rgb.AddForce(Vector3.Normalize(otherChar.transform.position - transform.position) * accel, ForceMode2D.Force);
+            }
+            else
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+        }
+
     }
 
     public void StartAbilityAnim()
@@ -180,6 +193,8 @@ public class Character : MonoBehaviour
         otherChar.GetComponent<Character>().SetInControl();
         Camera.main.gameObject.GetComponent<CameraController>().Switch(otherChar);
     }
+
+    
 
 }
 

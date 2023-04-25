@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Environment
+  - Rock
   layers:
   - Default
   - TransparentFX

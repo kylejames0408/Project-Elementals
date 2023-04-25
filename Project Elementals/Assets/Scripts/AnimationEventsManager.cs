@@ -30,4 +30,9 @@ public class AnimationEventsManager : ElementalReaction
     {
         Destroy(transform.parent.gameObject);
     }
+
+    public void RockDown()
+    {
+        GetComponent<Animator>().SetBool("RockUp", false);
+    }
 }
