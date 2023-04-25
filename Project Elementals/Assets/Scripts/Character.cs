@@ -33,7 +33,8 @@ public class Character : MonoBehaviour
     [SerializeField]private Sprite windSprite;
     [SerializeField]private Sprite gravSprite;
     [SerializeField]public List<Ability> abilities = new List<Ability>();
-    
+
+    [SerializeField] private float distanceToplayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -102,6 +103,18 @@ public class Character : MonoBehaviour
         }
         if (switchTimer > 0)
             switchTimer -= Time.deltaTime;
+
+        //follow
+        distanceToplayer = Vector3.Distance(otherChar.transform.position, this.transform.position);
+        if (!controlled)
+        {
+            if (distanceToplayer > 2)
+            {
+                rgb.AddForce(Vector3.Normalize(otherChar.transform.position - transform.position) * accel , ForceMode2D.Force);
+            }
+            else
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+        }
 
     }
 
