@@ -33,6 +33,12 @@ public class Enemy : ElementalReaction
     private bool windControlled;
     //Test test2 = new Test();
 
+    //Range Enemy
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private bool isRangeEnemy;
+    private bool needBullet;
+    [SerializeField]private float attackInterval;
+    private float tempAttackInterval;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +74,11 @@ public class Enemy : ElementalReaction
 
         players[0] = GameObject.Find("WindPlayer").GetComponent<Character>();
         players[1] = GameObject.Find("GravPlayer (1)").GetComponent<Character>();
+        
+        //attackInterval = 5;
+        tempAttackInterval = attackInterval;
+        
+        needBullet = true;//
     }
 
     // Update is called once per frame
@@ -118,14 +129,44 @@ public class Enemy : ElementalReaction
         {
             isChasing = true;
             accel = tempAccel;
+            
             if (players[0].controlled)
             {
-                if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)                   
+                if (!isRangeEnemy)
                 {
-                    rgb.AddForce(Vector3.Normalize(players[0].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)                   
+                    {
+                        rgb.AddForce(Vector3.Normalize(players[0].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                    }
+                    else
+                        rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
                 }
                 else
+                {
                     rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                    if (needBullet)
+                    {
+                        GameObject shoot = GameObject.Instantiate(bullet, transform.position, transform.rotation);
+                        shoot.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(players[0].transform.position - transform.position)*500, ForceMode2D.Force);
+                        needBullet = false;
+                        
+                    }
+
+                    if (!needBullet)
+                    {
+                        attackInterval -= Time.deltaTime;
+
+                        if (attackInterval <= 0)
+                        {
+                            needBullet = true;
+                            attackInterval = tempAttackInterval;
+                        }
+                    }
+                    
+                    
+                }
+                
 
                 if ((players[0].transform.position - transform.position).x < 0)
                 {
@@ -136,12 +177,43 @@ public class Enemy : ElementalReaction
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
             }
+
             if (players[1].controlled)
             {
-                if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-                    rgb.AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                if (!isRangeEnemy)
+                {
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+                    {
+                        rgb.AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                    }
+                    else
+                        rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+                }
                 else
+                {
                     rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                    if (needBullet)
+                    {
+                        GameObject shoot = GameObject.Instantiate(bullet, transform.position, transform.rotation);
+                        shoot.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * 500, ForceMode2D.Force);
+                        needBullet = false;
+
+                    }
+
+                    if (!needBullet)
+                    {
+                        attackInterval -= Time.deltaTime;
+
+                        if (attackInterval <= 0)
+                        {
+                            needBullet = true;
+                            attackInterval = tempAttackInterval;
+                        }
+                    }
+
+
+                }
 
                 if ((players[1].transform.position - transform.position).x < 0)
                 {
