@@ -178,6 +178,14 @@ public class Character : MonoBehaviour
 
     }
 
+    public void EquipItem(int refNumber)
+    {
+        if (refNumber % 2 == 0)
+            equippedGravItem = refNumber;
+        else
+            equippedWindItem = refNumber;
+    }
+
     public void SetInControl()
     {
         Debug.Log("Set in control called by " + name);
