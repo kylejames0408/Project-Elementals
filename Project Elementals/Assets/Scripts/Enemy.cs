@@ -31,7 +31,7 @@ public class Enemy : ElementalReaction
     [SerializeField] private Character[] players;
     private float distanceToPlayer;
     private bool windControlled;
-    Test test2 = new Test();
+    //Test test2 = new Test();
 
     // Start is called before the first frame update
     void Start()
@@ -117,12 +117,24 @@ public class Enemy : ElementalReaction
         if (distanceToPlayer < detectRange)
         {
             isChasing = true;
+            accel = tempAccel;
             if (players[0].controlled)
             {
-                if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+                if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)                   
+                {
                     rgb.AddForce(Vector3.Normalize(players[0].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                }
                 else
                     rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                if ((players[0].transform.position - transform.position).x < 0)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
             if (players[1].controlled)
             {
@@ -130,6 +142,15 @@ public class Enemy : ElementalReaction
                     rgb.AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
                 else
                     rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                if ((players[1].transform.position - transform.position).x < 0)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
             }
         }
         else
@@ -154,9 +175,20 @@ public class Enemy : ElementalReaction
             }
 
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-                rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+            {
+                rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);               
+            }
             else
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+            if ((patrolPos[patrolOrder].transform.position - transform.position).x < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
 
         }
 
@@ -273,7 +305,7 @@ public class Enemy : ElementalReaction
                 if (currentStatus == Status.idle)
                     currentStatus = Status.high_gravity;
                 else if (currentStatus == Status.updrafted)
-                    currentStatus = Status.updraft_increase;
+                    currentStatus = Status.updraft_increase; 
                 break;
         }
     }

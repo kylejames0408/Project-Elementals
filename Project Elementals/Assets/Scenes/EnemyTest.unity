@@ -11556,9 +11556,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3916038594574477046, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200635082556923235, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: detectRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200635082556923235, guid: f09a8c29dbee5824b96948958323b404, type: 3}
+      propertyPath: sojournTime
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5200635082556923235, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: players.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5200635082556923235, guid: f09a8c29dbee5824b96948958323b404, type: 3}
       propertyPath: players.Array.data[0]
