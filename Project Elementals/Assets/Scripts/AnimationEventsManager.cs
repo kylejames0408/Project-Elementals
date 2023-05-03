@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class AnimationEventsManager : ElementalReaction
 {
+    private DataTracker dataTracker;
+    private void Start()
+    {
+        dataTracker = GameObject.Find("DataTracker").GetComponent<DataTracker>();
+    }
     // Start is called before the first frame update
     public void FellDown()
     {
@@ -14,6 +19,7 @@ public class AnimationEventsManager : ElementalReaction
     {
         transform.parent.gameObject.GetComponent<Enemy>().currentStatus = Status.idle;
         transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(30);
+        
     }
 
     public void Idle()
@@ -29,6 +35,7 @@ public class AnimationEventsManager : ElementalReaction
     public void DeathAnimFinished()
     {
         Destroy(transform.parent.gameObject);
+        dataTracker.KillIncrement();
     }
 
     public void RockDown()
