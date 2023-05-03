@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     private bool startTimer = false;
     private GameObject activatedCollider;
     [SerializeField] private GameObject otherChar;
-    [SerializeField] private bool controlled;
+    public bool controlled;
     [SerializeField] private Sprite windSprite;
     [SerializeField] private Sprite gravSprite;
     [SerializeField] public List<Ability> abilities = new List<Ability>();
