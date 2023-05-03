@@ -3037,12 +3037,12 @@ MonoBehaviour:
   boxColliderPrefab: {fileID: 194031035784119337, guid: e3aff59dc1455c348bcc61dfd89d8d7f, type: 3}
   circleColliderPrefab: {fileID: 2386351221603124499, guid: 8d53acba83596eb4daeb2766cb3aea0c, type: 3}
   isWind: 1
-  switchCooldown: 0.2
-  windAutoCooldown: 0.2
+  switchCooldown: 0
+  windAutoCooldown: 0
   gravAutoCooldown: 0
-  projectileSpeed: 15
-  otherChar: {fileID: 1891393310}
-  controlled: 1
+  projectileSpeed: 0
+  otherChar: {fileID: 0}
+  controlled: 0
   windSprite: {fileID: 21300000, guid: 3f5ccde6654af6343a99cf2fed13aa55, type: 3}
   gravSprite: {fileID: 21300000, guid: 95978f1c9b0d1424db28f75df57f40b3, type: 3}
   abilities:
@@ -3060,8 +3060,8 @@ MonoBehaviour:
     yOffset: 0
     xSize: 9
     ySize: 0
-  windAutoProjectile: {fileID: 6674799394923145479, guid: 8e129f6f8953d7c428af5b3df1327957, type: 3}
-  projectileSpawnLocation: {fileID: 1113897424}
+  windAutoProjectile: {fileID: 0}
+  projectileSpawnLocation: {fileID: 0}
 --- !u!4 &1016559870
 Transform:
   m_ObjectHideFlags: 0
@@ -5671,11 +5671,11 @@ MonoBehaviour:
   boxColliderPrefab: {fileID: 194031035784119337, guid: e3aff59dc1455c348bcc61dfd89d8d7f, type: 3}
   circleColliderPrefab: {fileID: 2386351221603124499, guid: 8d53acba83596eb4daeb2766cb3aea0c, type: 3}
   isWind: 0
-  switchCooldown: 0.25
+  switchCooldown: 0
   windAutoCooldown: 0
   gravAutoCooldown: 0
   projectileSpeed: 0
-  otherChar: {fileID: 1016559865}
+  otherChar: {fileID: 0}
   controlled: 0
   windSprite: {fileID: 21300000, guid: 3f5ccde6654af6343a99cf2fed13aa55, type: 3}
   gravSprite: {fileID: 21300000, guid: 95978f1c9b0d1424db28f75df57f40b3, type: 3}

@@ -12,5 +12,9 @@ public class RangeCollider : MonoBehaviour
         Debug.Log("Collision Detected with " + collision.gameObject.name);
         if (collision.gameObject.tag == "Enemy")
             transform.parent.gameObject.GetComponent<Character>().AbilityHit(abilityReferenceNumber,collision.gameObject);
+        else if(collision.gameObject.tag == "Rock")
+        {
+            collision.gameObject.GetComponent<Animator>().SetBool("RockUp", true);
+        }
     }
 }
