@@ -18,7 +18,7 @@ public class AnimationEventsManager : ElementalReaction
     public void SlammedDown()
     {
         transform.parent.gameObject.GetComponent<Enemy>().currentStatus = Status.idle;
-        transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(30);
+        transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(40);
         
     }
 
@@ -41,5 +41,11 @@ public class AnimationEventsManager : ElementalReaction
     public void RockDown()
     {
         GetComponent<Animator>().SetBool("RockUp", false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(15);
     }
 }
