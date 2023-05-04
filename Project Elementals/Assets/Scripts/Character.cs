@@ -64,9 +64,26 @@ public class Character : MonoBehaviour
         if (controlled)
         {
             if (Input.GetAxis("Horizontal") > 0)
+            {
                 transform.localScale = natScale;
-            else if(Input.GetAxis("Horizontal") < 0)
+            }
+            else if (Input.GetAxis("Horizontal") < 0)
+            {
                 transform.localScale = new Vector2(-natScale.x, natScale.y);
+            }
+            
+
+
+            if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical") != 0)
+            {
+                GetComponentInChildren<Animator>().SetBool("isRunning", true);
+                otherChar.GetComponentInChildren<Animator>().SetBool("isRunning", true);
+            }
+            else
+            {
+                GetComponentInChildren<Animator>().SetBool("isRunning", false);
+                otherChar.GetComponentInChildren<Animator>().SetBool("isRunning", false);
+            }
 
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
                 rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
@@ -83,14 +100,17 @@ public class Character : MonoBehaviour
             {
                 StartAbilityAnim();
             }
+
             if(Input.GetMouseButtonUp(1))
             {
                 UseAbility();
             }
+
             if (Input.GetMouseButtonDown(0) && autoTimer <= 0) //LeftClick
             {
                 BasicAttack();
             }
+
             if (Input.GetKeyDown(KeyCode.Q) && switchTimer <= 0)
             {
 
