@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 
 
@@ -22,7 +23,7 @@ public class Character : MonoBehaviour
     private float originalVel;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
-    [SerializeField] private bool isWind = true;
+    public bool isWind = true;
     private int equippedWindItem = 3;
     private int equippedGravItem = 4;
     private float rangeTimer = 0;
@@ -45,8 +46,18 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject projectileSpawnLocation;
     private Vector2 natScale;
     [SerializeField] private float distanceToPlayer;
-    
-    
+
+    public bool HasWindUpdraft;
+    public bool HasWindPush;
+    public bool HasGravityOppress;
+    public bool HasGravityDepress;
+    public int Armor;
+
+    [SerializeField] private Image _item1UI;
+    [SerializeField] private Image _item2UI;
+    [SerializeField] private Image _armorUI;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,10 +82,10 @@ public class Character : MonoBehaviour
             {
                 transform.localScale = new Vector2(-natScale.x, natScale.y);
             }
-            
 
 
-            if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical") != 0)
+
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
                 GetComponentInChildren<Animator>().SetBool("isRunning", true);
                 otherChar.GetComponentInChildren<Animator>().SetBool("isRunning", true);
@@ -88,20 +99,20 @@ public class Character : MonoBehaviour
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
                 rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
             else
-                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel*Time.deltaTime);
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel * Time.deltaTime);
 
             if (Input.GetAxis("Vertical") == 0 && rgb.velocity.y != 0)
             {
-                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(rgb.velocity.x, 0), decel*Time.deltaTime);
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(rgb.velocity.x, 0), decel * Time.deltaTime);
             }
-           
+
 
             if (Input.GetMouseButtonDown(1))//Right Click
             {
                 StartAbilityAnim();
             }
 
-            if(Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(1))
             {
                 UseAbility();
             }
@@ -116,14 +127,106 @@ public class Character : MonoBehaviour
 
                 Switch();
             }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (isWind && HasWindUpdraft)
+                {
+                    EquipItem(1);
+                }
+
+                if (!isWind && HasGravityOppress)
+                {
+                    EquipItem(2);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (isWind && HasWindUpdraft)
+                {
+                    EquipItem(3);
+                }
+
+                if (!isWind && HasGravityOppress)
+                {
+                    EquipItem(4);
+                }
+            }
+
+            // UI STUFF
+            if (isWind)
+            {
+                switch (equippedWindItem)
+                {
+                    case 1:
+                        _item1UI.color = new Color32(98, 229, 219, 255);
+                        _item2UI.color = new Color32(73, 159, 152, 127);
+                        break;
+                    case 3:
+                        _item1UI.color = new Color32(98, 229, 219, 127);
+                        _item2UI.color = new Color32(73, 159, 152, 255);
+                        break;
+                }
+
+                if (!HasWindUpdraft)
+                {
+                    _item1UI.color = new Color32(98, 229, 219, 0);
+                }
+                if (!HasWindPush)
+                {
+                    _item2UI.color = new Color32(73, 159, 152, 0);
+                }
+            }
+
+            if (!isWind)
+            {
+                switch (equippedGravItem)
+                {
+                    case 2:
+                        _item1UI.color = new Color32(147, 29, 188, 255);
+                        _item2UI.color = new Color32(159, 73, 114, 127);
+                        break;
+                    case 4:
+                        _item1UI.color = new Color32(147, 29, 188, 127);
+                        _item2UI.color = new Color32(159, 73, 114, 255);
+                        break;
+                }
+
+                if (!HasGravityOppress)
+                {
+                    _item1UI.color = new Color32(147, 29, 188, 0);
+                }
+                if (!HasGravityDepress)
+                {
+                    _item2UI.color = new Color32(159, 73, 114, 0);
+                }
+            }
+
+            switch (Armor)
+            {
+                case 0:
+                    _armorUI.color = new Color32(0, 0, 0, 0);
+                    break;
+                case 1:
+                    _armorUI.color = new Color32(180, 125, 79, 255);
+                    break;
+                case 2:
+                    _armorUI.color = new Color32(180, 180, 180, 255);
+                    break;
+                case 3:
+                    _armorUI.color = new Color32(255, 190, 52, 255);
+                    break;
+            }
         }
+
+
         if (Input.GetAxis("Horizontal") == 0 && rgb.velocity.x != 0)
         {
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, rgb.velocity.y), decel*Time.deltaTime);
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, rgb.velocity.y), decel * Time.deltaTime);
         }
         if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel*Time.deltaTime);
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel * Time.deltaTime);
         }
 
         //Handling cooldowns
@@ -155,7 +258,7 @@ public class Character : MonoBehaviour
                 speedUpTimer = 0;
             }
         }
-        
+
 
 
         distanceToPlayer = Vector3.Distance(otherChar.transform.position, this.transform.position);
@@ -173,7 +276,7 @@ public class Character : MonoBehaviour
 
     public void StartAbilityAnim()
     {
-         if (isWind)
+        if (isWind)
         {
             transform.Find((abilities[equippedWindItem - 1].name + "Anim")).gameObject.SetActive(true);
         }
@@ -218,7 +321,7 @@ public class Character : MonoBehaviour
         if (isWind)
         {
             GameObject projectile = Instantiate(windAutoProjectile, projectileSpawnLocation.transform.position, transform.rotation);
-            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(transform.localScale.x), 0)* projectileSpeed;
+            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(transform.localScale.x), 0) * projectileSpeed;
             autoTimer = windAutoCooldown;
         }
 
@@ -248,7 +351,7 @@ public class Character : MonoBehaviour
         Camera.main.gameObject.GetComponent<CameraController>().Switch(otherChar);
     }
 
-    
+
 
 }
 
@@ -276,7 +379,7 @@ public class Ability
 }
 
 #if UNITY_EDITOR
-public class BuildColliders:EditorWindow
+public class BuildColliders : EditorWindow
 {
 
 
@@ -286,18 +389,18 @@ public class BuildColliders:EditorWindow
         EditorWindow.GetWindow(typeof(BuildColliders));
     }
 
-   
+
     private void OnGUI()
     {
-        if(GUILayout.Button("Run Function"))
+        if (GUILayout.Button("Run Function"))
         {
             CreateColliders();
             Debug.Log("Got here");
         }
     }
-   
+
     private GameObject player;
-   [SerializeField] public List<Ability> abilities;
+    [SerializeField] public List<Ability> abilities;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
     private BoxCollider2D boxColliderReference;
@@ -316,7 +419,7 @@ public class BuildColliders:EditorWindow
     {
         Debug.Log("Got here");
         abilities = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().abilities;
-        foreach(Transform t in player.transform)
+        foreach (Transform t in player.transform)
         {
             Debug.Log(t.name);
             if (t.name.Contains("Range"))
@@ -324,7 +427,7 @@ public class BuildColliders:EditorWindow
         }
         foreach (Ability a in abilities)
         {
-            if(a.colliderType == 0)
+            if (a.colliderType == 0)
             {
                 cloneReference = GameObject.Instantiate(boxColliderPrefab, player.transform);
                 boxColliderReference = cloneReference.GetComponent<BoxCollider2D>();
@@ -342,7 +445,7 @@ public class BuildColliders:EditorWindow
             cloneReference.name = a.name + "Range";
             cloneReference.GetComponent<RangeCollider>().abilityReferenceNumber = a.index;
         }
-        
+
     }
 }
 #endif
