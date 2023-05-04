@@ -25,7 +25,20 @@ public class Enemy : ElementalReaction
     [SerializeField] private float HP;
     private float maxHP, Intensity_wind, Intensity_grav, Intensity_control;
 
+    //Chasing
+    [SerializeField] private bool isChasing;
+    [SerializeField] private float detectRange;
+    [SerializeField] private Character[] players;
+    private float distanceToPlayer;
+    private bool windControlled;
+    //Test test2 = new Test();
 
+    //Range Enemy
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private bool isRangeEnemy;
+    private bool needBullet;
+    [SerializeField]private float attackInterval;
+    private float tempAttackInterval;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +66,19 @@ public class Enemy : ElementalReaction
         //Debug.Log("changed to " + i);
         //currentStatus = Status.updrafted;
         //takeDamage(0, 0, Status.high_gravity);
+
+        isChasing = false;
+        players = new Character[2];
+        //players[0] = GameObject.Find("WindPlayer");
+        //players[1] = GameObject.Find("GravPlayer (1)");
+
+        players[0] = GameObject.Find("WindPlayer").GetComponent<Character>();
+        players[1] = GameObject.Find("GravPlayer (1)").GetComponent<Character>();
+        
+        //attackInterval = 5;
+        tempAttackInterval = attackInterval;
+        
+        needBullet = true;//
     }
 
     // Update is called once per frame
@@ -62,7 +88,15 @@ public class Enemy : ElementalReaction
         scrollbars[0].size = HP / maxHP;
         scrollbars[1].size = Intensity_wind / 10;
         scrollbars[2].size = Intensity_grav / 10;
-
+        
+        if (players[0].controlled)
+        {
+            distanceToPlayer = Vector3.Distance(players[0].transform.position, transform.position);
+        }
+        else
+        {
+            distanceToPlayer = Vector3.Distance(players[1].transform.position, transform.position);
+        }
         //Update Status with elemental remain
         /*
         if (Intensity_grav > 0)
@@ -91,25 +125,149 @@ public class Enemy : ElementalReaction
 
     private void Move(float weaken)
     {
-        if (tempSojourn > 0 && !isPatrol)
+        if (distanceToPlayer < detectRange)
         {
-            accel = 0;
-            tempSojourn -= Time.deltaTime;
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), 0.02f);
-            //Debug.Log("!isPatrol");
+            isChasing = true;
+            accel = tempAccel;
+            
+            if (players[0].controlled)
+            {
+                if (!isRangeEnemy)
+                {
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)                   
+                    {
+                        rgb.AddForce(Vector3.Normalize(players[0].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                    }
+                    else
+                        rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+                }
+                else
+                {
+                    rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                    if (needBullet)
+                    {
+                        GameObject shoot = GameObject.Instantiate(bullet, transform.position, transform.rotation);
+                        shoot.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(players[0].transform.position - transform.position)*500, ForceMode2D.Force);
+                        needBullet = false;
+                        
+                    }
+
+                    if (!needBullet)
+                    {
+                        attackInterval -= Time.deltaTime;
+
+                        if (attackInterval <= 0)
+                        {
+                            needBullet = true;
+                            attackInterval = tempAttackInterval;
+                        }
+                    }
+                    
+                    
+                }
+                
+
+                if ((players[0].transform.position - transform.position).x < 0)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+            }
+
+            if (players[1].controlled)
+            {
+                if (!isRangeEnemy)
+                {
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+                    {
+                        rgb.AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
+                    }
+                    else
+                        rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+                }
+                else
+                {
+                    rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+                    if (needBullet)
+                    {
+                        GameObject shoot = GameObject.Instantiate(bullet, transform.position, transform.rotation);
+                        shoot.GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * 500, ForceMode2D.Force);
+                        needBullet = false;
+
+                    }
+
+                    if (!needBullet)
+                    {
+                        attackInterval -= Time.deltaTime;
+
+                        if (attackInterval <= 0)
+                        {
+                            needBullet = true;
+                            attackInterval = tempAttackInterval;
+                        }
+                    }
+
+
+                }
+
+                if ((players[1].transform.position - transform.position).x < 0)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+            }
         }
         else
         {
-            accel = tempAccel;
-            tempSojourn = sojournTime;
-            isPatrol = true;
+            isChasing = false;
         }
+
 
         if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus!=Status.pushed) //MERGE
             rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position)* accel * weaken, ForceMode2D.Force);
         else
             rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+        if (!isChasing)
+        {
+            if (tempSojourn > 0 && !isPatrol)
+            {
+                accel = 0;
+                tempSojourn -= Time.deltaTime;
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), 0.02f);
+                //Debug.Log("!isPatrol");
+            }
+            else
+            {
+                accel = tempAccel;
+                tempSojourn = sojournTime;
+                isPatrol = true;
+            }
 
+            if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+            {
+                rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);               
+            }
+            else
+                rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+
+            if ((patrolPos[patrolOrder].transform.position - transform.position).x < 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+        }
 
     }
     
@@ -239,6 +397,7 @@ public class Enemy : ElementalReaction
                     currentStatus = Status.updraft_increase;
                     dataTracker.SlamIncrement();//MERGE
                 }//MERGE
+
                 break;
             case 3:
                 if (currentStatus == Status.idle)
