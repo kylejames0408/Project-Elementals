@@ -23,6 +23,10 @@ public class RangeCollider : MonoBehaviour
             {
                 collision.gameObject.GetComponent<Animator>().SetBool("RockUp", true);
             }
+            else if(collision.gameObject.tag == "Bridge" && abilityReferenceNumber == 2)
+            {
+                collision.gameObject.GetComponent<Animator>().enabled = true;
+            }
         }
     }
 }

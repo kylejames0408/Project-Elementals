@@ -56,7 +56,7 @@ public class Character : MonoBehaviour
     public bool HasWindPush;
     public bool HasGravityOppress;
     public bool HasGravityDepress;
-    public int Armor;
+    public int Armor = 0;
 
     [SerializeField] private Image _item1UI;
     [SerializeField] private Image _item2UI;

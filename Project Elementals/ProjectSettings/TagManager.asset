@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Environment
   - Rock
+  - Bridge
   layers:
   - Default
   - TransparentFX
