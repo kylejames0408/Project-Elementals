@@ -245,7 +245,8 @@ public class Enemy : ElementalReaction
                 {
                     currentStatus = Status.pushed;
                     rgb.velocity = Vector2.zero;
-                    rgb.AddForce(new Vector2(1500, 0), ForceMode2D.Force);
+                    float xAxisSignToPush = Mathf.Sign(transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x);
+                    rgb.AddForce(new Vector2(1500*xAxisSignToPush, 0), ForceMode2D.Force);
                 }
                 break;
             
