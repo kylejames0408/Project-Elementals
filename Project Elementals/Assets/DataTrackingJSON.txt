@@ -1,1 +1,1 @@
-{"updraftCounter":8,"opressCounter":0,"slamCounter":8,"killCounter":2}
+{"updraftCounter":12,"opressCounter":0,"slamCounter":8,"killCounter":2}

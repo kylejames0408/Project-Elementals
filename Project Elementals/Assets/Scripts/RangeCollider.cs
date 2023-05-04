@@ -7,14 +7,22 @@ public class RangeCollider : MonoBehaviour
 
     [SerializeField] public int abilityReferenceNumber;
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collision Detected with " + collision.gameObject.name);
-        if (collision.gameObject.tag == "Enemy")
-            transform.parent.gameObject.GetComponent<Character>().AbilityHit(abilityReferenceNumber,collision.gameObject);
-        else if(collision.gameObject.tag == "Rock")
+        if (abilityReferenceNumber == 4)
         {
-            collision.gameObject.GetComponent<Animator>().SetBool("RockUp", true);
+            transform.parent.gameObject.GetComponent<Character>().SpeedUp();
+        }
+        else
+        {
+            if (collision.gameObject.tag == "Enemy")
+                transform.parent.gameObject.GetComponent<Character>().AbilityHit(abilityReferenceNumber, collision.gameObject);
+            else if (collision.gameObject.tag == "Rock" && abilityReferenceNumber == 1)
+            {
+                collision.gameObject.GetComponent<Animator>().SetBool("RockUp", true);
+            }
         }
     }
 }

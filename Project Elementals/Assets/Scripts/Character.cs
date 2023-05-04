@@ -17,18 +17,22 @@ public class Character : MonoBehaviour
 
     [SerializeField] private float accel;
     [SerializeField] private float maxVelocity;
+    [SerializeField] private float spedVelocity;
     [SerializeField] private float decel;
+    private float originalVel;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
     [SerializeField] private bool isWind = true;
-    private int equippedWindItem = 1;
-    private int equippedGravItem = 2;
+    private int equippedWindItem = 3;
+    private int equippedGravItem = 4;
     private float rangeTimer = 0;
     private float switchTimer = 0;
     private float autoTimer = 0;
+    private float speedUpTimer = 0;
     [SerializeField] private float switchCooldown = 0;
     [SerializeField] private float windAutoCooldown;
     [SerializeField] private float gravAutoCooldown;
+    [SerializeField] private float speedUpTime;
     [SerializeField] private float projectileSpeed;
     private bool startTimer = false;
     private GameObject activatedCollider;
@@ -46,6 +50,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        originalVel = maxVelocity;
         natScale = transform.localScale;
         rgb = GetComponent<Rigidbody2D>();
         foreach (Transform t in transform)
@@ -101,6 +106,8 @@ public class Character : MonoBehaviour
             rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel*Time.deltaTime);
         }
 
+        //Handling cooldowns
+
         if (startTimer)
         {
             if (rangeTimer > 0)
@@ -119,6 +126,17 @@ public class Character : MonoBehaviour
             switchTimer -= Time.deltaTime;
         if (autoTimer > 0)
             autoTimer -= Time.deltaTime;
+        if (speedUpTimer > 0)
+        {
+            speedUpTimer -= Time.deltaTime;
+            if (speedUpTimer <= 0)
+            {
+                maxVelocity = originalVel;
+                speedUpTimer = 0;
+            }
+        }
+        
+
 
         distanceToPlayer = Vector3.Distance(otherChar.transform.position, this.transform.position);
         if (!controlled)
@@ -165,6 +183,14 @@ public class Character : MonoBehaviour
     {
         Debug.Log("Ability number " + abilityReferenceNumber + " hit enemy " + enemyHit.name);
         enemyHit.GetComponent<Enemy>().HitByAbility(abilityReferenceNumber);
+    }
+
+    public void SpeedUp()
+    {
+        maxVelocity = spedVelocity;
+        if (!isWind)
+            otherChar.GetComponent<Character>().SpeedUp();
+        speedUpTimer = speedUpTime;
     }
 
     public void BasicAttack()

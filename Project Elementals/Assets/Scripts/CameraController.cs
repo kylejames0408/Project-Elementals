@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Target vector is " + (player.transform.position + offset));
+        //Debug.Log("Target vector is " + (player.transform.position + offset));
         transform.position = (player.transform.position + offset);
         //transform.position = Vector2.Lerp(transform.position, (player.transform.position + offset),Time.deltaTime*smootheningSpeed);
     }
