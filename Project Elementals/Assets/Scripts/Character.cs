@@ -46,6 +46,7 @@ public class Character : MonoBehaviour
     [SerializeField] private Sprite mugshot;
     [SerializeField] public List<Ability> abilities = new List<Ability>();
     [SerializeField] private GameObject windAutoProjectile;
+    [SerializeField] private GameObject gravAuto;
     [SerializeField] private GameObject projectileSpawnLocation;
     private Vector2 natScale;
     [SerializeField] private float distanceToPlayer;
@@ -120,12 +121,22 @@ public class Character : MonoBehaviour
 
             if (Input.GetMouseButtonUp(1))
             {
-                UseAbility();
+                if (isWind && equippedWindItem != 0)
+                    UseAbility();
+                else if (!isWind && equippedGravItem != 0)
+                    UseAbility();
             }
 
             if (Input.GetMouseButtonDown(0) && autoTimer <= 0) //LeftClick
             {
                 BasicAttack();
+            }
+            if(Input.GetMouseButtonUp(0))
+            {
+                if(!isWind)
+                {
+                    gravAuto.SetActive(false);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Q) && switchTimer <= 0)
@@ -329,6 +340,10 @@ public class Character : MonoBehaviour
             GameObject projectile = Instantiate(windAutoProjectile, projectileSpawnLocation.transform.position, transform.rotation);
             projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(transform.localScale.x), 0) * projectileSpeed;
             autoTimer = windAutoCooldown;
+        }
+        else
+        {
+            gravAuto.SetActive(true);
         }
 
     }
