@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
-
-
-
-
-
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -20,7 +15,7 @@ public class Character : MonoBehaviour
     [SerializeField] private float decel;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
-    [SerializeField] private bool isWind = true;
+    [SerializeField] public bool isWind = true;
     private int equippedWindItem = 1;
     private int equippedGravItem = 2;
     private float rangeTimer = 0;
@@ -41,6 +36,15 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject projectileSpawnLocation;
     private Vector2 natScale;
     [SerializeField] private float distanceToPlayer;
+    public bool HasWindUpdraft;
+    public bool HasWindPush;
+    public bool HasGravityOppress;
+    public bool HasGravityDepress;
+    public int Armor;
+
+    [SerializeField] private Image _item1UI;
+    [SerializeField] private Image _item2UI;
+    [SerializeField] private Image _armorUI;
     
     
     // Start is called before the first frame update
@@ -91,6 +95,97 @@ public class Character : MonoBehaviour
 
                 Switch();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (isWind && HasWindUpdraft)
+                {
+                    EquipItem(1);
+                }
+                
+                if (!isWind && HasGravityOppress)
+                {
+                    EquipItem(2);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (isWind && HasWindUpdraft)
+                {
+                    EquipItem(3);
+                }
+
+                if (!isWind && HasGravityOppress)
+                {
+                    EquipItem(4);
+                }
+            }
+
+            // UI STUFF
+            if (isWind)
+            {
+                switch (equippedWindItem)
+                {
+                    case 1:
+                        _item1UI.color = new Color32(98, 229, 219, 255);
+                        _item2UI.color = new Color32(73, 159, 152, 127);
+                        break;
+                    case 3:
+                        _item1UI.color = new Color32(98, 229, 219, 127);
+                        _item2UI.color = new Color32(73, 159, 152, 255);
+                        break;
+                }
+
+                if (!HasWindUpdraft)
+                {
+                    _item1UI.color = new Color32(98, 229, 219, 0);
+                }
+                if (!HasWindPush)
+                {
+                    _item2UI.color = new Color32(73, 159, 152, 0);
+                }
+            }
+
+            if (!isWind)
+            {
+                switch (equippedGravItem)
+                {
+                    case 2:
+                        _item1UI.color = new Color32(147, 29, 188, 255);
+                        _item2UI.color = new Color32(159, 73, 114, 127);
+                        break;
+                    case 4:
+                        _item1UI.color = new Color32(147, 29, 188, 127);
+                        _item2UI.color = new Color32(159, 73, 114, 255);
+                        break;
+                }
+
+                if (!HasGravityOppress)
+                {
+                    _item1UI.color = new Color32(147, 29, 188, 0);
+                }
+                if (!HasGravityDepress)
+                {
+                    _item2UI.color = new Color32(159, 73, 114, 0);
+                }
+            }
+
+            switch (Armor)
+            {
+                case 0:
+                    _armorUI.color = new Color32(0, 0, 0, 0);
+                    break;
+                case 1:
+                    _armorUI.color = new Color32(180, 125, 79, 255);
+                    break;
+                case 2:
+                    _armorUI.color = new Color32(180, 180, 180, 255);
+                    break;
+                case 3:
+                    _armorUI.color = new Color32(255, 190, 52, 255);
+                    break;
+            }
         }
         if (Input.GetAxis("Horizontal") == 0 && rgb.velocity.x != 0)
         {
@@ -130,7 +225,6 @@ public class Character : MonoBehaviour
             else
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
         }
-
     }
 
     public void StartAbilityAnim()
