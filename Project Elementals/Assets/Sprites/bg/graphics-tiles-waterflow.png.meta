@@ -132,9 +132,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 229
-        width: 64
-        height: 64
+        y: 193
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,10 +152,10 @@ TextureImporter:
       name: graphics-tiles-waterflow_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 229
-        width: 64
-        height: 64
+        x: 100
+        y: 193
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: graphics-tiles-waterflow_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 229
-        width: 64
-        height: 64
+        x: 200
+        y: 193
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: graphics-tiles-waterflow_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 229
-        width: 64
-        height: 64
+        x: 0
+        y: 93
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,10 +215,10 @@ TextureImporter:
       name: graphics-tiles-waterflow_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 165
-        width: 64
-        height: 64
+        x: 100
+        y: 93
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7cde1deebfba9347b804c85a32246a7
-      internalID: -629703258
+      spriteID: a6341616e526d2f428ff5c737bf550c1
+      internalID: 426318465
       vertices: []
       indices: 
       edges: []
@@ -236,10 +236,10 @@ TextureImporter:
       name: graphics-tiles-waterflow_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 165
-        width: 64
-        height: 64
+        x: 200
+        y: 93
+        width: 100
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,218 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8aba5eb9aa638a64d826ba28987089ba
-      internalID: -1363966014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_6
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 165
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0dfc6b7b03d79d04ebf5ff8bf113f2f7
-      internalID: 1116375321
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_7
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 165
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f974f96ae1c4844439d072d67b4c6960
-      internalID: -1685841083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 101
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce0edd63ec1051042a7009bf8be8ddb2
-      internalID: 1947703984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_9
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 101
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83a7100dc5b98a043ab56ef0cdd4dd4c
-      internalID: 1515591287
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_10
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 101
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7dd2656440c920f4a94bf8d3d93da15b
-      internalID: 1324721016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_11
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 101
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3032b8868e142d74a925816121622f15
-      internalID: -189408553
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 37
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca6aea6eb52a31b43894e899fff50f47
-      internalID: 637093287
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_13
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 37
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b12f609956115664c867f388f1090e6c
-      internalID: -1214802439
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_14
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 37
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d208f6a6919e81d4b8ac578f10ea3b0b
-      internalID: 705815518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: graphics-tiles-waterflow_15
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 37
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b397096944263d4dbded2ebd1019217
-      internalID: -717320602
+      spriteID: df573f2e242ca7649ae09d4604a9f8ac
+      internalID: -1480933698
       vertices: []
       indices: 
       edges: []
@@ -475,21 +265,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       graphics-tiles-waterflow_1: 41340810
-      graphics-tiles-waterflow_15: -717320602
       graphics-tiles-waterflow_3: 418433198
-      graphics-tiles-waterflow_13: -1214802439
-      graphics-tiles-waterflow_4: -629703258
-      graphics-tiles-waterflow_10: 1324721016
-      graphics-tiles-waterflow_14: 705815518
+      graphics-tiles-waterflow_4: 426318465
       graphics-tiles-waterflow_0: -281497193
-      graphics-tiles-waterflow_11: -189408553
-      graphics-tiles-waterflow_6: 1116375321
-      graphics-tiles-waterflow_9: 1515591287
       graphics-tiles-waterflow_2: 547699616
-      graphics-tiles-waterflow_8: 1947703984
-      graphics-tiles-waterflow_12: 637093287
-      graphics-tiles-waterflow_5: -1363966014
-      graphics-tiles-waterflow_7: -1685841083
+      graphics-tiles-waterflow_5: -1480933698
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
