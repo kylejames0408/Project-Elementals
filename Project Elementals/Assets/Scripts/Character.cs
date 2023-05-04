@@ -21,11 +21,13 @@ public class Character : MonoBehaviour
     [SerializeField] private float spedVelocity;
     [SerializeField] private float decel;
     private float originalVel;
+    private float playerHealth;
+    [SerializeField]private float playerMaxHealth;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
     public bool isWind = true;
-    private int equippedWindItem = 3;
-    private int equippedGravItem = 4;
+    private int equippedWindItem = 0;
+    private int equippedGravItem = 0;
     private float rangeTimer = 0;
     private float switchTimer = 0;
     private float autoTimer = 0;
@@ -41,11 +43,14 @@ public class Character : MonoBehaviour
     public bool controlled;
     [SerializeField] private Sprite windSprite;
     [SerializeField] private Sprite gravSprite;
+    [SerializeField] private Sprite mugshot;
     [SerializeField] public List<Ability> abilities = new List<Ability>();
     [SerializeField] private GameObject windAutoProjectile;
     [SerializeField] private GameObject projectileSpawnLocation;
     private Vector2 natScale;
     [SerializeField] private float distanceToPlayer;
+    public GameObject mugshotHolder;
+    public GameObject healthBar;
 
     public bool HasWindUpdraft;
     public bool HasWindPush;
@@ -61,6 +66,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHealth = playerMaxHealth;
         originalVel = maxVelocity;
         natScale = transform.localScale;
         rgb = GetComponent<Rigidbody2D>();
@@ -97,7 +103,7 @@ public class Character : MonoBehaviour
             }
 
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-                rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel, ForceMode2D.Force);
+                rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel * (1-((float)Armor/10.0f)), ForceMode2D.Force);
             else
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel * Time.deltaTime);
 
@@ -340,6 +346,8 @@ public class Character : MonoBehaviour
         Debug.Log("Set in control called by " + name);
         switchTimer = switchCooldown;
         controlled = true;
+        mugshotHolder.GetComponent<Image>().sprite = mugshot;
+        healthBar.GetComponent<Image>().fillAmount = playerHealth / playerMaxHealth;
     }
 
     public void Switch()
@@ -351,7 +359,18 @@ public class Character : MonoBehaviour
         Camera.main.gameObject.GetComponent<CameraController>().Switch(otherChar);
     }
 
-
+    public void TakeDamage(int damage)
+    {
+        playerHealth -= (damage - Armor);
+        if(playerHealth<=0)
+        {
+            //Do death things
+        }
+        else
+        {
+            healthBar.GetComponent<Image>().fillAmount = playerHealth / playerMaxHealth;
+        }
+    }
 
 }
 
