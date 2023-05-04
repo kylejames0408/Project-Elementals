@@ -20,7 +20,7 @@ public class Enemy : ElementalReaction
     private int patrolOrder;
     private float tempAccel;
     private float tempSojourn;
-
+    private DataTracker dataTracker;//MERGE
     //Define cambat status of enemy
     [SerializeField] private float HP;
     private float maxHP, Intensity_wind, Intensity_grav, Intensity_control;
@@ -43,7 +43,7 @@ public class Enemy : ElementalReaction
     void Start()
     {
         rgb = GetComponent<Rigidbody2D>();
-
+        dataTracker = GameObject.Find("DataTracker").GetComponent<DataTracker>();//MERGE
         //Patrol and sojourn time
         patrolOrder = 0;
         if(accel <= 0)
@@ -230,6 +230,11 @@ public class Enemy : ElementalReaction
             isChasing = false;
         }
 
+
+        if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus!=Status.pushed) //MERGE
+            rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position)* accel * weaken, ForceMode2D.Force);
+        else
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
         if (!isChasing)
         {
             if (tempSojourn > 0 && !isPatrol)
@@ -353,6 +358,11 @@ public class Enemy : ElementalReaction
                 Move(0);
                 GetComponentInChildren<Animator>().SetInteger("Status", (int)currentStatus);
                 break;
+            case Status.pushed://MERGE
+                Move(0);
+                if (rgb.velocity == Vector2.zero)
+                    currentStatus = Status.idle;
+                break;
 
         }
 
@@ -371,14 +381,34 @@ public class Enemy : ElementalReaction
         {
             case 1:
                 if (currentStatus == Status.idle)
+                {//MERGE
                     currentStatus = Status.updrafted;
+                    dataTracker.UpdraftIncrement();//MERGE
+                }//MERGE
                 break;
             case 2:
                 if (currentStatus == Status.idle)
+                {//MERGE
                     currentStatus = Status.high_gravity;
+                    dataTracker.OppressIncrement();//MERGE
+                }//MERGE
                 else if (currentStatus == Status.updrafted)
-                    currentStatus = Status.updraft_increase; 
+                {//MERGE
+                    currentStatus = Status.updraft_increase;
+                    dataTracker.SlamIncrement();//MERGE
+                }//MERGE
+
                 break;
+            case 3:
+                if (currentStatus == Status.idle)
+                {
+                    currentStatus = Status.pushed;
+                    rgb.velocity = Vector2.zero;
+                    float xAxisSignToPush = Mathf.Sign(transform.position.x - GameObject.FindGameObjectWithTag("Player").transform.position.x);
+                    rgb.AddForce(new Vector2(1500*xAxisSignToPush, 0), ForceMode2D.Force);
+                }
+                break;
+            
         }
     }
 }
