@@ -325,6 +325,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9112134820757054463, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
+      propertyPath: detectRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112134820757054463, guid: 973d3b0ada7aaf040828888feb23a425, type: 3}
       propertyPath: patrolPos.Array.size
       value: 3
       objectReference: {fileID: 0}

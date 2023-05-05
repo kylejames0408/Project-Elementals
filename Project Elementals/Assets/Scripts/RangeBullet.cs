@@ -9,7 +9,8 @@ public class RangeBullet : MonoBehaviour
 
         if (collision.tag == "Player")
         {
-            //collision.gameObject.GetComponent<Enemy>().TakeDamage(5);
+            collision.gameObject.GetComponent<Character>().TakeDamage(5);
+            Destroy(gameObject);
         }
         if (collision.tag == "Environment")
         {

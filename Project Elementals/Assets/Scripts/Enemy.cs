@@ -134,7 +134,7 @@ public class Enemy : ElementalReaction
             {
                 if (!isRangeEnemy)
                 {
-                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)                   
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus != Status.pushed)                   
                     {
                         rgb.AddForce(Vector3.Normalize(players[0].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
                     }
@@ -182,7 +182,7 @@ public class Enemy : ElementalReaction
             {
                 if (!isRangeEnemy)
                 {
-                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+                    if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus != Status.pushed)
                     {
                         rgb.AddForce(Vector3.Normalize(players[1].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);
                     }
@@ -231,10 +231,11 @@ public class Enemy : ElementalReaction
         }
 
 
-        if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus!=Status.pushed) //MERGE
+        /*if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus!=Status.pushed) //MERGE
             rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position)* accel * weaken, ForceMode2D.Force);
         else
-            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);
+            rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel);*/
+
         if (!isChasing)
         {
             if (tempSojourn > 0 && !isPatrol)
@@ -251,7 +252,7 @@ public class Enemy : ElementalReaction
                 isPatrol = true;
             }
 
-            if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
+            if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity && currentStatus != Status.pushed)
             {
                 rgb.AddForce(Vector3.Normalize(patrolPos[patrolOrder].transform.position - transform.position) * accel * weaken, ForceMode2D.Force);               
             }
@@ -297,6 +298,13 @@ public class Enemy : ElementalReaction
         {
             TakeDamage(5); //// change this to player status
         }
+
+        if (others.tag == "Player")
+        {
+            //collision.gameObject.GetComponent<Enemy>().TakeDamage(5);
+            others.gameObject.GetComponent<Character>().TakeDamage(10);
+        }
+
     }
 
     public void TakeDamage(float damage)
@@ -411,4 +419,5 @@ public class Enemy : ElementalReaction
             
         }
     }
+
 }
