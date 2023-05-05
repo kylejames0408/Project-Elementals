@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyDeathCollider : MonoBehaviour
 {
     // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.tag == "Enemy")
-            other.gameObject.GetComponent<Enemy>().TakeDamage(1000000);
+        Debug.Log("Collision tag is " + collision.gameObject.tag);
+        if (collision.gameObject.tag == "Enemy")
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(1000000);
     }
 }

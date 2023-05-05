@@ -19,6 +19,7 @@ public class SetActiveTrigger : MonoBehaviour
     private void Start()
     {
         diedEnemyCount = 0;
+        players = GameObject.FindGameObjectsWithTag("Player");
     }
 
     private void Update()
@@ -28,7 +29,7 @@ public class SetActiveTrigger : MonoBehaviour
             
             foreach (GameObject g in enemiesToActivate)
             {
-                if (g.GetComponent<BoxCollider2D>().enabled == false)
+                if (g == null)
                 {
                     diedEnemyCount += 1;
                 }
@@ -47,6 +48,7 @@ public class SetActiveTrigger : MonoBehaviour
                 }
 
                 isBattleTrigger = false;
+                gameObject.SetActive(false);
             }
         }
 

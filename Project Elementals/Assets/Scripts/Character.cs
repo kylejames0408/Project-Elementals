@@ -105,7 +105,7 @@ public class Character : MonoBehaviour
             }
 
             if (Mathf.Abs(rgb.velocity.magnitude) <= maxVelocity)
-                rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel * (1-((float)Armor/10.0f)), ForceMode2D.Force);
+                rgb.AddForce(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * accel *Time.deltaTime*100, ForceMode2D.Force);
             else
                 rgb.velocity = Vector2.Lerp(rgb.velocity, new Vector2(0, 0), decel * Time.deltaTime);
 
