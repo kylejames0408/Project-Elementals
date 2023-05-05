@@ -159,7 +159,7 @@ public class Character : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (isWind && HasWindUpdraft)
+                if (isWind && HasWindPush)
                 {
                     EquipItem(3);
                 }
