@@ -1548,7 +1548,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 9773ae7b0970adc46b52e076257eee4a, type: 3}
     - target: {fileID: 3586820714058876366, guid: 674cbecdfb7cfb049a0afa47313022d9, type: 3}
       propertyPath: m_Name
-      value: GravityOppressItem
+      value: GravityDepressItem
       objectReference: {fileID: 0}
     - target: {fileID: 3586820714058876370, guid: 674cbecdfb7cfb049a0afa47313022d9, type: 3}
       propertyPath: m_RootOrder
@@ -1816,7 +1816,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3447500282976347152, guid: ccbb43234636de447aba7bbc74ce5454, type: 3}
       propertyPath: m_Name
-      value: GravityDepressItem
+      value: GravityOppressItem
       objectReference: {fileID: 0}
     - target: {fileID: 3447500282976347156, guid: ccbb43234636de447aba7bbc74ce5454, type: 3}
       propertyPath: m_RootOrder

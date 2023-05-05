@@ -164,7 +164,7 @@ public class Character : MonoBehaviour
                     EquipItem(3);
                 }
 
-                if (!isWind && HasGravityOppress)
+                if (!isWind && HasGravityDepress)
                 {
                     EquipItem(4);
                 }
@@ -350,6 +350,7 @@ public class Character : MonoBehaviour
 
     public void EquipItem(int refNumber)
     {
+        Debug.Log("Setting item to " + refNumber);
         if (refNumber % 2 == 0)
             equippedGravItem = refNumber;
         else
