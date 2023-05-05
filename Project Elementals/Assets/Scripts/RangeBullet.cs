@@ -7,7 +7,7 @@ public class RangeBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.gameObject.GetComponent<Character>().controlled)
         {
             collision.gameObject.GetComponent<Character>().TakeDamage(5);
             Destroy(gameObject);

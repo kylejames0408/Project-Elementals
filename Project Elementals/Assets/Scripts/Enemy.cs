@@ -299,7 +299,7 @@ public class Enemy : ElementalReaction
             TakeDamage(5); //// change this to player status
         }
 
-        if (others.tag == "Player")
+        if (others.tag == "Player" && others.gameObject.GetComponent<Character>().controlled)
         {
             //collision.gameObject.GetComponent<Enemy>().TakeDamage(5);
             others.gameObject.GetComponent<Character>().TakeDamage(10);
