@@ -302,7 +302,7 @@ public class Enemy : ElementalReaction
         if (others.tag == "Player" && others.gameObject.GetComponent<Character>().controlled)
         {
             //collision.gameObject.GetComponent<Enemy>().TakeDamage(5);
-            others.gameObject.GetComponent<Character>().TakeDamage(2);
+            others.gameObject.GetComponent<Character>().TakeDamage(4);
         }
 
     }

@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Design
+  m_text: Level Design
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a89c81da01b9ba409b21fe2dfde7b07, type: 2}
   m_sharedMaterial: {fileID: -1215260605381243458, guid: 4a89c81da01b9ba409b21fe2dfde7b07, type: 2}
@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Art, Sound, Level Design
+  m_text: Art, Sound
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a89c81da01b9ba409b21fe2dfde7b07, type: 2}
   m_sharedMaterial: {fileID: -1215260605381243458, guid: 4a89c81da01b9ba409b21fe2dfde7b07, type: 2}
