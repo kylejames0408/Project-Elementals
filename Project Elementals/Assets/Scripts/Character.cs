@@ -21,8 +21,8 @@ public class Character : MonoBehaviour
     [SerializeField] private float spedVelocity;
     [SerializeField] private float decel;
     private float originalVel;
-    private float playerHealth;
-    [SerializeField]private float playerMaxHealth;
+    public float playerHealth;
+    [SerializeField]public float playerMaxHealth;
     public GameObject boxColliderPrefab;
     public GameObject circleColliderPrefab;
     public bool isWind = true;
