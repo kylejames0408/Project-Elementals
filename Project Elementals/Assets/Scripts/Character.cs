@@ -48,6 +48,7 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject windAutoProjectile;
     [SerializeField] private GameObject gravAuto;
     [SerializeField] private GameObject projectileSpawnLocation;
+    [SerializeField] private GameObject deathScreen;
     private Vector2 natScale;
     [SerializeField] private float distanceToPlayer;
     public GameObject mugshotHolder;
@@ -381,6 +382,8 @@ public class Character : MonoBehaviour
         if(playerHealth<=0)
         {
             //Do death things
+            controlled = false;
+            deathScreen.SetActive(true);
         }
         else
         {

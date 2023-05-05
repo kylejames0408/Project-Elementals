@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimationEventsManager : ElementalReaction
 {
@@ -47,5 +48,10 @@ public class AnimationEventsManager : ElementalReaction
     {
         if (collision.gameObject.tag == "Enemy")
             collision.gameObject.GetComponent<Enemy>().TakeDamage(15);
+    }
+
+    public void DiedText()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
