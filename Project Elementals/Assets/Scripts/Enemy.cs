@@ -304,7 +304,7 @@ public class Enemy : ElementalReaction
             //collision.gameObject.GetComponent<Enemy>().TakeDamage(5);
             others.gameObject.GetComponent<Character>().TakeDamage(4);
         }
-        if (others.gameObject.tag == "Environment")
+        if (others.gameObject.tag == "InvisWall")
             TakeDamage(1000000);
     }
 
