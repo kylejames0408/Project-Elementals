@@ -8,6 +8,7 @@ TagManager:
   - Environment
   - Rock
   - Bridge
+  - InvisWall
   layers:
   - Default
   - TransparentFX

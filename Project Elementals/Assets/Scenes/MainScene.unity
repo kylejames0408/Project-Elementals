@@ -2451,8 +2451,8 @@ GameObject:
   - component: {fileID: 254188346}
   - component: {fileID: 254188345}
   m_Layer: 0
-  m_Name: Room4_topW (3)
-  m_TagString: Environment
+  m_Name: Room5_leftW
+  m_TagString: InvisWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2465,7 +2465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254188343}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 18.59, y: 23.04, z: -12.059999}
+  m_LocalPosition: {x: 18.19, y: 23.04, z: -12.059999}
   m_LocalScale: {x: 16.023996, y: 0.7994818, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2497,7 +2497,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.03240718, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2508,7 +2508,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9351857, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &254188347
 SpriteRenderer:
@@ -25649,8 +25649,8 @@ GameObject:
   - component: {fileID: 870151457}
   - component: {fileID: 870151456}
   m_Layer: 0
-  m_Name: Room4_topW (4)
-  m_TagString: Environment
+  m_Name: Room5_rightW
+  m_TagString: InvisWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25663,7 +25663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870151454}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 29.08, y: 23.04, z: -12.059999}
+  m_LocalPosition: {x: 29.57, y: 23.04, z: -12.059999}
   m_LocalScale: {x: 16.023996, y: 0.7994818, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25695,7 +25695,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.024755538, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -25706,7 +25706,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9504889, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &870151458
 SpriteRenderer:
@@ -28868,7 +28868,7 @@ GameObject:
   - component: {fileID: 1396833945}
   m_Layer: 0
   m_Name: Room6_leftW
-  m_TagString: Environment
+  m_TagString: InvisWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30161,7 +30161,7 @@ GameObject:
   - component: {fileID: 1584609467}
   m_Layer: 0
   m_Name: Room6_rightW
-  m_TagString: Environment
+  m_TagString: InvisWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
